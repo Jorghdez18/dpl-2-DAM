@@ -1,0 +1,2628 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://www.example.com/gitea/Install-Gitea-with-docker/">
+      
+      
+        <link rel="prev" href="../../tema-visual/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.65">
+    
+    
+      
+        <title>Install Gitea with Docker - Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.40d3fdbb.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.812a03bb.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#instalar-gitea-con-docker" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Documentation" class="md-header__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Install Gitea with Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun-moon" viewBox="0 0 24 24"><path d="M12 2v2M14.837 16.385a6 6 0 1 1-7.223-7.222c.624-.147.97.66.715 1.248a4 4 0 0 0 5.26 5.259c.589-.255 1.396.09 1.248.715M16 12a4 4 0 0 0-4-4M19 5l-1.256 1.256M20 12h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Documentation" class="md-nav__button md-logo" aria-label="Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Get started
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Markdown</title><path d="M22.27 19.385H1.73A1.73 1.73 0 0 1 0 17.655V6.345a1.73 1.73 0 0 1 1.73-1.73h20.54A1.73 1.73 0 0 1 24 6.345v11.308a1.73 1.73 0 0 1-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Markdown in 5min
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../get-site/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Obtener site
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trabajando-con-git/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-branch" viewBox="0 0 24 24"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Using Git & Github
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tema-visual/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Tema Visual
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Gitea
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Gitea
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Gitea</title><path d="M4.209 4.603c-.247 0-.525.02-.84.088-.333.07-1.28.283-2.054 1.027C-.403 7.25.035 9.685.089 10.052c.065.446.263 1.687 1.21 2.768 1.749 2.141 5.513 2.092 5.513 2.092s.462 1.103 1.168 2.119c.955 1.263 1.936 2.248 2.89 2.367 2.406 0 7.212-.004 7.212-.004s.458.004 1.08-.394c.535-.324 1.013-.893 1.013-.893s.492-.527 1.18-1.73c.21-.37.385-.729.538-1.068 0 0 2.107-4.471 2.107-8.823-.042-1.318-.367-1.55-.443-1.627-.156-.156-.366-.153-.366-.153s-4.475.252-6.792.306c-.508.011-1.012.023-1.512.027v4.474l-.634-.301c0-1.39-.004-4.17-.004-4.17-1.107.016-3.405-.084-3.405-.084s-5.399-.27-5.987-.324c-.187-.011-.401-.032-.648-.032zm.354 1.832h.111s.271 2.269.6 3.597C5.549 11.147 6.22 13 6.22 13s-.996-.119-1.641-.348c-.99-.324-1.409-.714-1.409-.714s-.73-.511-1.096-1.52C1.444 8.73 2.021 7.7 2.021 7.7s.32-.859 1.47-1.145c.395-.106.863-.12 1.072-.12m8.33 2.554c.26.003.509.127.509.127l.868.422-.529 1.075a.69.69 0 0 0-.614.359.69.69 0 0 0 .072.756l-.939 1.924a.69.69 0 0 0-.66.527.69.69 0 0 0 .347.763.686.686 0 0 0 .867-.206.69.69 0 0 0-.069-.882l.916-1.874a.7.7 0 0 0 .237-.02.66.66 0 0 0 .271-.137 9 9 0 0 1 1.016.512.76.76 0 0 1 .286.282c.073.21-.073.569-.073.569-.087.29-.702 1.55-.702 1.55a.69.69 0 0 0-.676.477.681.681 0 1 0 1.157-.252c.073-.141.141-.282.214-.431.19-.397.515-1.16.515-1.16.035-.066.218-.394.103-.814-.095-.435-.48-.638-.48-.638-.467-.301-1.116-.58-1.116-.58s0-.156-.042-.27a.7.7 0 0 0-.148-.241l.516-1.062 2.89 1.401s.48.218.583.619c.073.282-.019.534-.069.657-.24.587-2.1 4.317-2.1 4.317s-.232.554-.748.588a1.1 1.1 0 0 1-.393-.045l-.202-.08-4.31-2.1s-.417-.218-.49-.596c-.083-.31.104-.691.104-.691l2.073-4.272s.183-.37.466-.497a.9.9 0 0 1 .35-.077"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Install Gitea with Docker
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Gitea</title><path d="M4.209 4.603c-.247 0-.525.02-.84.088-.333.07-1.28.283-2.054 1.027C-.403 7.25.035 9.685.089 10.052c.065.446.263 1.687 1.21 2.768 1.749 2.141 5.513 2.092 5.513 2.092s.462 1.103 1.168 2.119c.955 1.263 1.936 2.248 2.89 2.367 2.406 0 7.212-.004 7.212-.004s.458.004 1.08-.394c.535-.324 1.013-.893 1.013-.893s.492-.527 1.18-1.73c.21-.37.385-.729.538-1.068 0 0 2.107-4.471 2.107-8.823-.042-1.318-.367-1.55-.443-1.627-.156-.156-.366-.153-.366-.153s-4.475.252-6.792.306c-.508.011-1.012.023-1.512.027v4.474l-.634-.301c0-1.39-.004-4.17-.004-4.17-1.107.016-3.405-.084-3.405-.084s-5.399-.27-5.987-.324c-.187-.011-.401-.032-.648-.032zm.354 1.832h.111s.271 2.269.6 3.597C5.549 11.147 6.22 13 6.22 13s-.996-.119-1.641-.348c-.99-.324-1.409-.714-1.409-.714s-.73-.511-1.096-1.52C1.444 8.73 2.021 7.7 2.021 7.7s.32-.859 1.47-1.145c.395-.106.863-.12 1.072-.12m8.33 2.554c.26.003.509.127.509.127l.868.422-.529 1.075a.69.69 0 0 0-.614.359.69.69 0 0 0 .072.756l-.939 1.924a.69.69 0 0 0-.66.527.69.69 0 0 0 .347.763.686.686 0 0 0 .867-.206.69.69 0 0 0-.069-.882l.916-1.874a.7.7 0 0 0 .237-.02.66.66 0 0 0 .271-.137 9 9 0 0 1 1.016.512.76.76 0 0 1 .286.282c.073.21-.073.569-.073.569-.087.29-.702 1.55-.702 1.55a.69.69 0 0 0-.676.477.681.681 0 1 0 1.157-.252c.073-.141.141-.282.214-.431.19-.397.515-1.16.515-1.16.035-.066.218-.394.103-.814-.095-.435-.48-.638-.48-.638-.467-.301-1.116-.58-1.116-.58s0-.156-.042-.27a.7.7 0 0 0-.148-.241l.516-1.062 2.89 1.401s.48.218.583.619c.073.282-.019.534-.069.657-.24.587-2.1 4.317-2.1 4.317s-.232.554-.748.588a1.1 1.1 0 0 1-.393-.045l-.202-.08-4.31-2.1s-.417-.218-.49-.596c-.083-.31.104-.691.104-.691l2.073-4.272s.183-.37.466-.497a.9.9 0 0 1 .35-.077"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Install Gitea with Docker
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-que-es-gitea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. ¿Qué es Gitea?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-que-es-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. ¿Qué es Docker?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. ¿Qué es Docker?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-analogia-del-taper" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La analogía del táper
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#palabras-que-vas-a-ver" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Palabras que vas a ver
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-que-necesitas-antes-de-empezar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Qué necesitas antes de empezar
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-instalar-docker-y-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Instalar Docker y Docker Compose
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Instalar Docker y Docker Compose">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-corta-suficiente-para-practicar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Versión corta (suficiente para practicar)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-oficial-la-que-recomienda-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Versión oficial (la que recomienda Docker)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-que-todo-quedo-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comprobar que todo quedó bien
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-escribo-sudo-delante-de-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué escribo <code>sudo</code> delante de Docker?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-elegir-la-base-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Elegir la base de datos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-crear-la-carpeta-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Crear la carpeta del proyecto
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Crear la carpeta del proyecto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Permisos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-crear-el-archivo-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. Crear el archivo <code>docker-compose.yml</code>
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Crear el archivo docker-compose.yml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-a-con-sqlite3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción A: con SQLite3
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opción A: con SQLite3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-significa-cada-linea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Qué significa cada línea
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-b-con-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción B: con PostgreSQL
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opción B: con PostgreSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-cambia-respecto-a-la-opcion-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Qué cambia respecto a la opción A
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-que-el-archivo-quedo-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comprobar que el archivo quedó bien
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-arrancar-gitea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8. Arrancar Gitea
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-el-asistente-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9. El asistente de instalación
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. El asistente de instalación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-base-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.1 Base de datos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-configuracion-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.2 Configuración general
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-casillas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.3 Casillas
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-cuenta-de-administrador" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.4 Cuenta de administrador
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-instalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.5 Instalar
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-comprobar-que-todo-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        10. Comprobar que todo funciona
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Comprobar que todo funciona">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ver los contenedores
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-registros" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ver los registros
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-la-base-de-datos-solo-con-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comprobar la base de datos (solo con PostgreSQL)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-donde-se-guardan-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ver dónde se guardan los datos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-comandos-de-docker-para-el-dia-a-dia" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        11. Comandos de Docker para el día a día
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Comandos de Docker para el día a día">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comandos-de-docker-en-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comandos de Docker en general
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diferencia-entre-stop-y-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diferencia entre <code>stop</code> y <code>down</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-actualizar-gitea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        12. Actualizar Gitea
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-empezar-de-cero" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        13. Empezar de cero
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-copia-de-seguridad-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        14. Copia de seguridad básica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-errores-comunes-y-como-resolverlos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        15. Errores comunes y cómo resolverlos
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Errores comunes y cómo resolverlos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#donde-mirar-cuando-algo-falla" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dónde mirar cuando algo falla
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-chuleta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16. Chuleta rápida
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-resumen-del-flujo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        17. Resumen del flujo completo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recursos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-que-es-gitea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. ¿Qué es Gitea?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-que-es-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. ¿Qué es Docker?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. ¿Qué es Docker?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-analogia-del-taper" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        La analogía del táper
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#palabras-que-vas-a-ver" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Palabras que vas a ver
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-que-necesitas-antes-de-empezar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. Qué necesitas antes de empezar
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-instalar-docker-y-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Instalar Docker y Docker Compose
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Instalar Docker y Docker Compose">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-corta-suficiente-para-practicar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Versión corta (suficiente para practicar)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-oficial-la-que-recomienda-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Versión oficial (la que recomienda Docker)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-que-todo-quedo-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comprobar que todo quedó bien
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-escribo-sudo-delante-de-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué escribo <code>sudo</code> delante de Docker?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-elegir-la-base-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. Elegir la base de datos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-crear-la-carpeta-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Crear la carpeta del proyecto
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Crear la carpeta del proyecto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Permisos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-crear-el-archivo-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. Crear el archivo <code>docker-compose.yml</code>
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Crear el archivo docker-compose.yml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-a-con-sqlite3" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción A: con SQLite3
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opción A: con SQLite3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-significa-cada-linea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Qué significa cada línea
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-b-con-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción B: con PostgreSQL
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opción B: con PostgreSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-cambia-respecto-a-la-opcion-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Qué cambia respecto a la opción A
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-que-el-archivo-quedo-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comprobar que el archivo quedó bien
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-arrancar-gitea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8. Arrancar Gitea
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-el-asistente-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9. El asistente de instalación
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. El asistente de instalación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-base-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.1 Base de datos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-configuracion-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.2 Configuración general
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-casillas" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.3 Casillas
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-cuenta-de-administrador" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.4 Cuenta de administrador
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-instalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        9.5 Instalar
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-comprobar-que-todo-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        10. Comprobar que todo funciona
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Comprobar que todo funciona">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ver los contenedores
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-los-registros" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ver los registros
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comprobar-la-base-de-datos-solo-con-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comprobar la base de datos (solo con PostgreSQL)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-donde-se-guardan-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ver dónde se guardan los datos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-comandos-de-docker-para-el-dia-a-dia" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        11. Comandos de Docker para el día a día
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Comandos de Docker para el día a día">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comandos-de-docker-en-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comandos de Docker en general
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diferencia-entre-stop-y-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Diferencia entre <code>stop</code> y <code>down</code>
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-actualizar-gitea" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        12. Actualizar Gitea
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-empezar-de-cero" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        13. Empezar de cero
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-copia-de-seguridad-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        14. Copia de seguridad básica
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-errores-comunes-y-como-resolverlos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        15. Errores comunes y cómo resolverlos
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Errores comunes y cómo resolverlos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#donde-mirar-cuando-algo-falla" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dónde mirar cuando algo falla
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-chuleta-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        16. Chuleta rápida
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-resumen-del-flujo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        17. Resumen del flujo completo
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recursos
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    Get started
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="././" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    Gitea
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="instalar-gitea-con-docker">Instalar Gitea con Docker<a class="headerlink" href="#instalar-gitea-con-docker" title="Permanent link">&para;</a></h1>
+<p>Guía paso a paso para montar tu propio servidor de Git (<strong>Gitea</strong>) usando <strong>Docker</strong>, con dos opciones de base de datos: <strong>SQLite3</strong> (la que ya viene incluida) o <strong>PostgreSQL</strong>. No hace falta saber de informática: cada paso explica <strong>qué haces, por qué y qué está pasando por dentro</strong>.</p>
+<hr />
+<h2 id="1-que-es-gitea">1. ¿Qué es Gitea?<a class="headerlink" href="#1-que-es-gitea" title="Permanent link">&para;</a></h2>
+<p>Si conoces GitHub, Gitea es lo mismo pero <strong>instalado en tu propia máquina</strong>. Sirve para guardar tus proyectos con Git, ver su historial y trabajar con otras personas, y todo queda en tu servidor, no en uno de fuera.</p>
+<p>Tiene una web desde la que se crean usuarios y repositorios, se ven los cambios y se gestionan incidencias.</p>
+<hr />
+<h2 id="2-que-es-docker">2. ¿Qué es Docker?<a class="headerlink" href="#2-que-es-docker" title="Permanent link">&para;</a></h2>
+<p>Instalar un programa normal implica crear usuarios, carpetas, permisos y servicios a mano. Docker lo simplifica: el programa viaja dentro de una <strong>caja cerrada</strong> que ya trae todo lo que necesita, y tú solo le dices a Docker "ejecuta esta caja".</p>
+<h3 id="la-analogia-del-taper">La analogía del táper<a class="headerlink" href="#la-analogia-del-taper" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Instalación normal</th>
+<th>Con Docker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cocinar en tu cocina: compras ingredientes, preparas la mesa y lo cocinas</td>
+<td>Un táper ya preparado: lo abres y lo calientas</td>
+</tr>
+<tr>
+<td>Todo queda mezclado con tu sistema</td>
+<td>Todo queda aislado en la caja</td>
+</tr>
+<tr>
+<td>Para quitarlo hay que deshacer cada paso</td>
+<td>Se borra la caja y listo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="palabras-que-vas-a-ver">Palabras que vas a ver<a class="headerlink" href="#palabras-que-vas-a-ver" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Palabra</th>
+<th>En sencillo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Docker Engine</strong></td>
+<td>El programa que ejecuta las cajas</td>
+</tr>
+<tr>
+<td><strong>Imagen</strong></td>
+<td>La caja cerrada con el programa dentro (por ejemplo, Gitea)</td>
+</tr>
+<tr>
+<td><strong>Contenedor</strong></td>
+<td>Una imagen en marcha</td>
+</tr>
+<tr>
+<td><strong>Docker Compose</strong></td>
+<td>Una herramienta que arranca contenedores leyendo un archivo de texto, el <code>docker-compose.yml</code></td>
+</tr>
+<tr>
+<td><strong>Volumen</strong></td>
+<td>Una carpeta de tu máquina conectada a la caja, para que los datos <strong>no se pierdan</strong> al borrarla</td>
+</tr>
+<tr>
+<td><strong>Puerto</strong></td>
+<td>El número de una "ventanilla" por la que se accede (Gitea usa la 3000)</td>
+</tr>
+<tr>
+<td><strong>Rootless</strong></td>
+<td>Versión de la imagen que <strong>no necesita permisos de administrador</strong> dentro de la caja. Es más segura</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-que-necesitas-antes-de-empezar">3. Qué necesitas antes de empezar<a class="headerlink" href="#3-que-necesitas-antes-de-empezar" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Una máquina con <strong>Ubuntu</strong> (22.04, 24.04 o 26.04, en 64 bits).</li>
+<li>Conexión a internet.</li>
+<li>Un usuario con permisos de <code>sudo</code>.</li>
+</ul>
+<p>Comprueba tu sistema:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lsb_release<span class="w"> </span>-a
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uname<span class="w"> </span>-m
+</span></code></pre></div>
+<p>El segundo comando debe responder <code>x86_64</code>.</p>
+<hr />
+<h2 id="4-instalar-docker-y-docker-compose">4. Instalar Docker y Docker Compose<a class="headerlink" href="#4-instalar-docker-y-docker-compose" title="Permanent link">&para;</a></h2>
+<p>Primero comprueba si ya los tienes:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>--version
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>version
+</span></code></pre></div>
+<p>Si responden con un número de versión, <strong>salta al apartado 5</strong>. Si dicen que no encuentran la orden, instálalos.</p>
+<h3 id="version-corta-suficiente-para-practicar">Versión corta (suficiente para practicar)<a class="headerlink" href="#version-corta-suficiente-para-practicar" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>docker.io<span class="w"> </span>docker-compose-v2
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</span></code></pre></div>
+<p><strong>Qué hace cada comando:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apt update</code></td>
+<td>Actualiza la lista de programas disponibles</td>
+</tr>
+<tr>
+<td><code>apt install docker.io docker-compose-v2</code></td>
+<td>Instala Docker y el comando <code>docker compose</code></td>
+</tr>
+<tr>
+<td><code>systemctl status docker</code></td>
+<td>Pregunta si Docker está encendido. Debe poner <code>active (running)</code> (sal con <code>q</code>)</td>
+</tr>
+<tr>
+<td><code>docker run hello-world</code></td>
+<td>Descarga una caja de prueba y la ejecuta</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Deja que <code>hello-world</code> termine</p>
+<p>La primera vez descarga la imagen y puede tardar unos segundos. Si pulsas <code>Ctrl + C</code> se cancela. Debe acabar mostrando un mensaje que empieza por <code>Hello from Docker!</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">No instales <code>docker</code></p>
+<p>En Ubuntu, <code>sudo apt install docker</code> instala <strong>otro programa distinto</strong> que no tiene nada que ver con los contenedores. El paquete correcto se llama <code>docker.io</code>.</p>
+</div>
+<h3 id="version-oficial-la-que-recomienda-docker">Versión oficial (la que recomienda Docker)<a class="headerlink" href="#version-oficial-la-que-recomienda-docker" title="Permanent link">&para;</a></h3>
+<p>El paquete <code>docker.io</code> es el que trae Ubuntu en su catálogo, con una versión algo más antigua. Docker también ofrece su repositorio oficial, con la última versión. Los pasos están en <a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a>.</p>
+<p>Las dos versiones <strong>chocan entre sí</strong>: elige una y no las mezcles.</p>
+<h3 id="comprobar-que-todo-quedo-bien">Comprobar que todo quedó bien<a class="headerlink" href="#comprobar-que-todo-quedo-bien" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>--version
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>version
+</span></code></pre></div>
+<p>Ejemplo de respuesta:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Docker Compose version 2.40.3+ds1-0ubuntu1~24.04.1
+</span></code></pre></div>
+<h3 id="por-que-escribo-sudo-delante-de-docker">¿Por qué escribo <code>sudo</code> delante de Docker?<a class="headerlink" href="#por-que-escribo-sudo-delante-de-docker" title="Permanent link">&para;</a></h3>
+<p>Docker se controla por un archivo especial al que solo pueden acceder el administrador y el grupo <code>docker</code>. Si escribes <code>docker ps</code> sin <code>sudo</code>, verás:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+</span></code></pre></div>
+<p>Es normal y tiene dos soluciones:</p>
+<ul>
+<li><strong>Seguir usando <code>sudo</code></strong> delante de cada comando de Docker. Es lo que hace esta guía.</li>
+<li><strong>Añadir tu usuario al grupo <code>docker</code></strong> y volver a iniciar sesión:</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Aviso de seguridad</p>
+<p>Pertenecer al grupo <code>docker</code> equivale, en la práctica, a tener permisos de administrador sobre la máquina. En una VM de prácticas no importa, pero conviene saberlo.</p>
+</div>
+<hr />
+<h2 id="5-elegir-la-base-de-datos">5. Elegir la base de datos<a class="headerlink" href="#5-elegir-la-base-de-datos" title="Permanent link">&para;</a></h2>
+<p>Gitea necesita una base de datos para guardar usuarios, repositorios e incidencias. Hay dos opciones:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SQLite3</th>
+<th>PostgreSQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dónde vive</strong></td>
+<td>Un archivo dentro de Gitea</td>
+<td>Un servidor de base de datos independiente</td>
+</tr>
+<tr>
+<td><strong>Qué hay que instalar</strong></td>
+<td>Nada, ya viene incluida</td>
+<td>Un contenedor más</td>
+</tr>
+<tr>
+<td><strong>Complejidad</strong></td>
+<td>Mínima</td>
+<td>Algo mayor</td>
+</tr>
+<tr>
+<td><strong>Cuándo usarla</strong></td>
+<td>Pruebas, uso personal, pocos usuarios</td>
+<td>Muchos usuarios, uso profesional</td>
+</tr>
+<tr>
+<td><strong>Contenedores</strong></td>
+<td>1 (Gitea)</td>
+<td>2 (Gitea y PostgreSQL)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Elígela antes de terminar el asistente</p>
+<p>Cambiar de base de datos <strong>después</strong> de crear usuarios implica migrar los datos. Decide ahora.</p>
+</div>
+<p>Los pasos 6, 7 y 8 son iguales en los dos casos, salvo el archivo del paso 7. El paso 9 (el asistente) tiene una tabla para cada base de datos.</p>
+<hr />
+<h2 id="6-crear-la-carpeta-del-proyecto">6. Crear la carpeta del proyecto<a class="headerlink" href="#6-crear-la-carpeta-del-proyecto" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/gitea/<span class="o">{</span>data,config<span class="o">}</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">cd</span><span class="w"> </span>~/gitea
+</span></code></pre></div>
+<p>Dentro de <code>gitea</code> se crean dos carpetas:</p>
+<table>
+<thead>
+<tr>
+<th>Carpeta</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>Repositorios y datos de Gitea. <strong>Lo que no debe perderse</strong></td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td>El archivo de configuración (<code>app.ini</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Son carpetas de <strong>tu máquina</strong> que se conectan a la caja. Aunque borres el contenedor, tus datos siguen aquí.</p>
+<h3 id="permisos">Permisos<a class="headerlink" href="#permisos" title="Permanent link">&para;</a></h3>
+<p>La imagen <em>rootless</em> usa por defecto el usuario número <strong>1000</strong>, y las dos carpetas tienen que pertenecerle. Comprueba tu número:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>id<span class="w"> </span>-u
+</span></code></pre></div>
+<ul>
+<li>Si responde <strong>1000</strong> (lo normal en el primer usuario de Ubuntu), las carpetas que has creado ya son tuyas: no hay que hacer nada.</li>
+<li>Si responde <strong>otro número</strong>, ejecuta:</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>chown<span class="w"> </span><span class="m">1000</span>:1000<span class="w"> </span>config<span class="w"> </span>data
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Si te saltas esto cuando hace falta</p>
+<p>El contenedor falla con un error <code>Permission denied</code> en sus registros, por ejemplo <code>/var/lib/gitea/git is not writable</code>.</p>
+</div>
+<hr />
+<h2 id="7-crear-el-archivo-docker-composeyml">7. Crear el archivo <code>docker-compose.yml</code><a class="headerlink" href="#7-crear-el-archivo-docker-composeyml" title="Permanent link">&para;</a></h2>
+<p>Este archivo <strong>describe</strong> las cajas que quieres: qué imagen usar, qué carpetas conectar y qué puertos abrir. Elige <strong>solo uno</strong> de los dos.</p>
+<h3 id="opcion-a-con-sqlite3">Opción A: con SQLite3<a class="headerlink" href="#opcion-a-con-sqlite3" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yml<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="s">services:</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s">  server:</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="s">    image: docker.gitea.com/gitea:28.1.0-rootless</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="s">    restart: always</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="s">    volumes:</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="s">      - ./data:/var/lib/gitea</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="s">      - ./config:/etc/gitea</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="s">      - /etc/timezone:/etc/timezone:ro</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="s">      - /etc/localtime:/etc/localtime:ro</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="s">    ports:</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="s">      - "3000:3000"</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="s">      - "2222:2222"</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h4 id="que-significa-cada-linea">Qué significa cada línea<a class="headerlink" href="#que-significa-cada-linea" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Línea</th>
+<th>En sencillo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>image</code></td>
+<td>Qué caja usar: Gitea, en la versión <code>28.1.0</code>, edición <em>rootless</em></td>
+</tr>
+<tr>
+<td><code>restart: always</code></td>
+<td>Si se apaga o reinicias la máquina, vuelve a encenderse sola</td>
+</tr>
+<tr>
+<td><code>volumes</code></td>
+<td>Carpetas de tu máquina conectadas a la caja. El <code>:ro</code> significa "solo lectura"</td>
+</tr>
+<tr>
+<td><code>./data:/var/lib/gitea</code></td>
+<td>Tu carpeta <code>data</code> es la carpeta de datos dentro de la caja</td>
+</tr>
+<tr>
+<td><code>./config:/etc/gitea</code></td>
+<td>Tu carpeta <code>config</code> es la de configuración dentro de la caja</td>
+</tr>
+<tr>
+<td><code>/etc/timezone</code> y <code>/etc/localtime</code></td>
+<td>La caja usa la misma hora que tu máquina</td>
+</tr>
+<tr>
+<td><code>"3000:3000"</code></td>
+<td>La puerta 3000 de tu máquina lleva a la web de Gitea</td>
+</tr>
+<tr>
+<td><code>"2222:2222"</code></td>
+<td>La puerta 2222 lleva al SSH de Gitea, para <code>git push</code> por SSH</td>
+</tr>
+</tbody>
+</table>
+<h3 id="opcion-b-con-postgresql">Opción B: con PostgreSQL<a class="headerlink" href="#opcion-b-con-postgresql" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yml<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="s">networks:</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="s">  gitea:</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="s">    external: false</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="s">services:</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="s">  server:</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="s">    image: docker.gitea.com/gitea:28.1.0-rootless</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="s">    restart: always</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="s">    environment:</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="s">      - GITEA__database__DB_TYPE=postgres</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="s">      - GITEA__database__HOST=db:5432</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="s">      - GITEA__database__NAME=tu-nombre</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="s">      - GITEA__database__USER=tu-usuario</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="s">      - GITEA__database__PASSWD=tu-password</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="s">    networks:</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="s">      - gitea</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="s">    volumes:</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="s">      - ./data:/var/lib/gitea</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="s">      - ./config:/etc/gitea</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="s">      - /etc/timezone:/etc/timezone:ro</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="s">      - /etc/localtime:/etc/localtime:ro</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="s">    ports:</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="s">      - "3000:3000"</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="s">      - "2222:2222"</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="s">    depends_on:</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="s">      - db</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="s">  db:</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="s">    image: docker.io/library/postgres:18</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="s">    restart: always</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="s">    environment:</span>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="s">      - POSTGRES_USER=tu-usuario</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a><span class="s">      - POSTGRES_PASSWORD=tu-contraseña</span>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="s">      - POSTGRES_DB=gitea</span>
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="s">    networks:</span>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="s">      - gitea</span>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="s">    volumes:</span>
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="s">      - ./postgres:/var/lib/postgresql</span>
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h4 id="que-cambia-respecto-a-la-opcion-a">Qué cambia respecto a la opción A<a class="headerlink" href="#que-cambia-respecto-a-la-opcion-a" title="Permanent link">&para;</a></h4>
+<p>Aparece un <strong>segundo contenedor</strong> (<code>db</code>) con PostgreSQL, y tres piezas nuevas:</p>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>En sencillo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>networks: gitea</code></td>
+<td>Una red privada para que los dos contenedores se vean entre sí</td>
+</tr>
+<tr>
+<td><code>GITEA__database__...</code></td>
+<td>Le dicen a Gitea de antemano qué base de datos usar: tipo, dónde está, nombre, usuario y contraseña</td>
+</tr>
+<tr>
+<td><code>HOST=db:5432</code></td>
+<td><code>db</code> es el nombre del otro contenedor y <code>5432</code> el puerto estándar de PostgreSQL</td>
+</tr>
+<tr>
+<td><code>depends_on: db</code></td>
+<td>Arranca primero la base de datos y después Gitea</td>
+</tr>
+<tr>
+<td><code>POSTGRES_USER/PASSWORD/DB</code></td>
+<td>Al arrancar, crea el usuario, la contraseña y la base de datos <code>gitea</code></td>
+</tr>
+<tr>
+<td><code>./postgres:/var/lib/postgresql</code></td>
+<td>Carpeta de tu máquina donde PostgreSQL guarda sus datos</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">¿Por qué <code>db</code> y no <code>localhost</code>?</p>
+<p>Dentro de una caja, <code>localhost</code> significa "esta misma caja". Los contenedores de una misma red se encuentran por el <strong>nombre del servicio</strong>, y por eso Gitea llama a la base de datos <code>db</code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Las contraseñas deben coincidir</p>
+<p>Aquí todo es <code>gitea</code>, como en el ejemplo oficial, y sirve para practicar. Si cambias la contraseña, tiene que ser <strong>la misma</strong> en <code>POSTGRES_PASSWORD</code> y en <code>GITEA__database__PASSWD</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">El puerto de la base de datos no se abre</p>
+<p>El contenedor <code>db</code> no publica ningún puerto hacia fuera: solo Gitea puede hablar con PostgreSQL.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Versión de PostgreSQL</p>
+<p>La documentación de Gitea fija PostgreSQL en una versión mayor a propósito (aquí la 18), porque PostgreSQL no actualiza solo su carpeta de datos. No cambies de versión mayor más adelante sin migrar.</p>
+</div>
+<h3 id="comprobar-que-el-archivo-quedo-bien">Comprobar que el archivo quedó bien<a class="headerlink" href="#comprobar-que-el-archivo-quedo-bien" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cat<span class="w"> </span>docker-compose.yml
+</span></code></pre></div>
+<p>La indentación importa: en un <code>.yml</code> los espacios son parte del contenido. Si copiaste el bloque entero, estará bien.</p>
+<hr />
+<h2 id="8-arrancar-gitea">8. Arrancar Gitea<a class="headerlink" href="#8-arrancar-gitea" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>ps
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker compose</code></td>
+<td>Usa el <code>docker-compose.yml</code> de esta carpeta</td>
+</tr>
+<tr>
+<td><code>up</code></td>
+<td>Crea y arranca lo que describe</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>En segundo plano, para no ocupar la terminal</td>
+</tr>
+<tr>
+<td><code>ps</code></td>
+<td>Muestra los contenedores y su estado</td>
+</tr>
+</tbody>
+</table>
+<p>La primera vez descarga las imágenes, y puede tardar. No pulses <code>Ctrl + C</code>.</p>
+<p><strong>Resultado correcto:</strong> en <code>ps</code> aparece el contenedor (o los <strong>dos</strong>, con PostgreSQL) en estado <code>Up</code>. En la columna de puertos verás algo como <code>0.0.0.0:3000-&gt;3000/tcp</code>.</p>
+<hr />
+<h2 id="9-el-asistente-de-instalacion">9. El asistente de instalación<a class="headerlink" href="#9-el-asistente-de-instalacion" title="Permanent link">&para;</a></h2>
+<p>Abre en el navegador:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>http://127.0.0.1:3000
+</span></code></pre></div>
+<p>Verás la página <strong>Configuración inicial</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Si usas PostgreSQL, espera medio minuto</p>
+<p>La base de datos necesita unos segundos para arrancar antes de que el asistente pueda conectarse.</p>
+</div>
+<h3 id="91-base-de-datos">9.1 Base de datos<a class="headerlink" href="#91-base-de-datos" title="Permanent link">&para;</a></h3>
+<p><strong>Con SQLite3:</strong> en <em>Tipo de base de datos</em> elige <strong>SQLite3</strong> y deja el resto como viene. No hay nada más que configurar.</p>
+<p><strong>Con PostgreSQL:</strong> el asistente debería aparecer ya con los campos rellenos. Compruébalos:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tipo de base de datos</td>
+<td><strong>PostgreSQL</strong></td>
+</tr>
+<tr>
+<td>Servidor</td>
+<td><strong><code>db:5432</code></strong></td>
+</tr>
+<tr>
+<td>Nombre de usuario</td>
+<td><strong><code>tu-usuario</code></strong></td>
+</tr>
+<tr>
+<td>Contraseña</td>
+<td><strong><code>tu-contraseña</code></strong> (o la que hayas puesto)</td>
+</tr>
+<tr>
+<td>Nombre de la base de datos</td>
+<td><strong><code>gitea</code></strong></td>
+</tr>
+<tr>
+<td>SSL</td>
+<td><strong>Disable</strong></td>
+</tr>
+<tr>
+<td>Esquema</td>
+<td>Vacío</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Si ves <code>localhost:3306</code></p>
+<p>Eso es el puerto de MySQL y significa que <strong>no</strong> estás usando el archivo de PostgreSQL (opción B), o que has cambiado el tipo a mano. Con ese valor la instalación falla. Cierra el asistente, usa el archivo de la opción B y vuelve a empezar (apartado 13).</p>
+</div>
+<h3 id="92-configuracion-general">9.2 Configuración general<a class="headerlink" href="#92-configuracion-general" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Título del sitio</strong></td>
+<td>El que quieras, por ejemplo <code>My Cup of Tea</code></td>
+</tr>
+<tr>
+<td><strong>Data Path</strong></td>
+<td>Déjalo en <code>/var/lib/gitea</code></td>
+</tr>
+<tr>
+<td><strong>Ejecutar como usuario</strong></td>
+<td>Déjalo en <code>git</code> (está bloqueado)</td>
+</tr>
+<tr>
+<td><strong>Puerto de servidor SSH</strong></td>
+<td><code>2222</code></td>
+</tr>
+<tr>
+<td><strong>HTTP Server Port</strong></td>
+<td><code>3000</code></td>
+</tr>
+<tr>
+<td><strong>Gitea Website URL</strong></td>
+<td><code>http://localhost:3000/</code> por ahora</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-casillas">9.3 Casillas<a class="headerlink" href="#93-casillas" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Casilla</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Only administrators can create user accounts</em></td>
+<td><strong>Márcala</strong>: nadie más podrá registrarse, los usuarios los creas tú</td>
+</tr>
+<tr>
+<td><em>Requerir CAPTCHA durante el registro</em></td>
+<td>Sin marcar</td>
+</tr>
+<tr>
+<td><em>Require sign-in to view pages</em></td>
+<td>Sin marcar, salvo que quieras que todo exija iniciar sesión</td>
+</tr>
+<tr>
+<td><em>Enable update checker</em></td>
+<td>Como esté</td>
+</tr>
+</tbody>
+</table>
+<h3 id="94-cuenta-de-administrador">9.4 Cuenta de administrador<a class="headerlink" href="#94-cuenta-de-administrador" title="Permanent link">&para;</a></h3>
+<p>Despliega <strong>Configuración de la cuenta de administrador</strong> y rellénala:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Qué poner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre de usuario</td>
+<td>El tuyo. <strong>No uses <code>admin</code></strong>: Gitea lo tiene reservado y lo rechaza</td>
+</tr>
+<tr>
+<td>Correo electrónico</td>
+<td>Uno con formato válido, por ejemplo <code>usuario@example.com</code></td>
+</tr>
+<tr>
+<td>Contraseña</td>
+<td>Una que recuerdes</td>
+</tr>
+<tr>
+<td>Confirmar contraseña</td>
+<td>La misma</td>
+</tr>
+</tbody>
+</table>
+<p>Las secciones <em>Configuración de Correo</em> y <em>Configuración del servidor y de servicios de terceros</em> déjalas como están.</p>
+<h3 id="95-instalar">9.5 Instalar<a class="headerlink" href="#95-instalar" title="Permanent link">&para;</a></h3>
+<p>Pulsa <strong>Instalar Gitea</strong>. Tarda unos segundos y la página puede parecer que se queda cargando: espera. Si no te lleva sola a la pantalla de inicio de sesión, entra en <code>http://127.0.0.1:3000</code> e inicia sesión con la cuenta que acabas de crear.</p>
+<hr />
+<h2 id="10-comprobar-que-todo-funciona">10. Comprobar que todo funciona<a class="headerlink" href="#10-comprobar-que-todo-funciona" title="Permanent link">&para;</a></h2>
+<h3 id="ver-los-contenedores">Ver los contenedores<a class="headerlink" href="#ver-los-contenedores" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>ps
+</span></code></pre></div>
+<h3 id="ver-los-registros">Ver los registros<a class="headerlink" href="#ver-los-registros" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">20</span>
+</span></code></pre></div>
+<p>Muestra las últimas 20 líneas de lo que ha escrito Gitea. Si algo falla, aquí aparece la causa.</p>
+<h3 id="comprobar-la-base-de-datos-solo-con-postgresql">Comprobar la base de datos (solo con PostgreSQL)<a class="headerlink" href="#comprobar-la-base-de-datos-solo-con-postgresql" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>gitea<span class="w"> </span>-d<span class="w"> </span>gitea<span class="w"> </span>-c<span class="w"> </span><span class="s1">'\dt'</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exec db</code></td>
+<td>Ejecuta un comando dentro del contenedor <code>db</code></td>
+</tr>
+<tr>
+<td><code>psql</code></td>
+<td>El cliente de línea de comandos de PostgreSQL</td>
+</tr>
+<tr>
+<td><code>-U gitea -d gitea</code></td>
+<td>Usuario <code>gitea</code>, base de datos <code>gitea</code></td>
+</tr>
+<tr>
+<td><code>-c '\dt'</code></td>
+<td>Lista las tablas</td>
+</tr>
+</tbody>
+</table>
+<p>Debe aparecer una lista larga de tablas (<code>user</code>, <code>repository</code>, <code>issue</code>...). Es la prueba de que Gitea guarda sus datos en PostgreSQL.</p>
+<h3 id="ver-donde-se-guardan-los-datos">Ver dónde se guardan los datos<a class="headerlink" href="#ver-donde-se-guardan-los-datos" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ls<span class="w"> </span>~/gitea
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ls<span class="w"> </span>~/gitea/config
+</span></code></pre></div>
+<p>Verás las carpetas <code>data</code> y <code>config</code> (y <code>postgres</code>, si usas esa base de datos). En <code>config</code> aparecerá <code>app.ini</code>, el archivo de configuración que creó el asistente.</p>
+<hr />
+<h2 id="11-comandos-de-docker-para-el-dia-a-dia">11. Comandos de Docker para el día a día<a class="headerlink" href="#11-comandos-de-docker-para-el-dia-a-dia" title="Permanent link">&para;</a></h2>
+<p>Todos se ejecutan <strong>desde la carpeta <code>~/gitea</code></strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sudo docker compose up -d</code></td>
+<td>Crea y arranca Gitea</td>
+</tr>
+<tr>
+<td><code>sudo docker compose stop</code></td>
+<td>Lo <strong>para</strong> sin borrar nada</td>
+</tr>
+<tr>
+<td><code>sudo docker compose start</code></td>
+<td>Lo vuelve a arrancar</td>
+</tr>
+<tr>
+<td><code>sudo docker compose restart</code></td>
+<td>Lo reinicia</td>
+</tr>
+<tr>
+<td><code>sudo docker compose down</code></td>
+<td>Para y <strong>borra los contenedores</strong> (los datos de <code>data</code>, <code>config</code> y <code>postgres</code> se quedan)</td>
+</tr>
+<tr>
+<td><code>sudo docker compose ps</code></td>
+<td>Muestra el estado</td>
+</tr>
+<tr>
+<td><code>sudo docker compose logs --tail 30</code></td>
+<td>Últimas 30 líneas de registro</td>
+</tr>
+<tr>
+<td><code>sudo docker compose logs -f</code></td>
+<td>Registros en directo (<code>Ctrl + C</code> para salir)</td>
+</tr>
+<tr>
+<td><code>sudo docker compose pull</code></td>
+<td>Descarga versiones nuevas de las imágenes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comandos-de-docker-en-general">Comandos de Docker en general<a class="headerlink" href="#comandos-de-docker-en-general" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sudo docker ps</code></td>
+<td>Lista los contenedores en marcha</td>
+</tr>
+<tr>
+<td><code>sudo docker ps -a</code></td>
+<td>Lista también los parados</td>
+</tr>
+<tr>
+<td><code>sudo docker images</code></td>
+<td>Lista las imágenes descargadas</td>
+</tr>
+<tr>
+<td><code>sudo systemctl status docker</code></td>
+<td>Estado del servicio Docker</td>
+</tr>
+<tr>
+<td><code>sudo systemctl stop docker</code></td>
+<td>Apaga Docker (y sus contenedores)</td>
+</tr>
+<tr>
+<td><code>sudo systemctl start docker</code></td>
+<td>Enciende Docker</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diferencia-entre-stop-y-down">Diferencia entre <code>stop</code> y <code>down</code><a class="headerlink" href="#diferencia-entre-stop-y-down" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>stop</code></th>
+<th><code>down</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Contenedor</strong></td>
+<td>Se queda, pero parado</td>
+<td>Se borra</td>
+</tr>
+<tr>
+<td><strong>Tus datos</strong></td>
+<td>Intactos</td>
+<td>Intactos</td>
+</tr>
+<tr>
+<td><strong>Para volver</strong></td>
+<td><code>start</code></td>
+<td><code>up -d</code></td>
+</tr>
+</tbody>
+</table>
+<p>Es como apagar la tele con el mando (<code>stop</code>) o desenchufarla y guardarla en el trastero (<code>down</code>). En los dos casos tus cosas siguen en las carpetas <code>data</code> y <code>config</code>.</p>
+<hr />
+<h2 id="12-actualizar-gitea">12. Actualizar Gitea<a class="headerlink" href="#12-actualizar-gitea" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Edita <code>docker-compose.yml</code> y cambia el número de versión de la línea <code>image</code>.</li>
+<li>Descarga las imágenes nuevas y arranca:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>pull
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</span></code></pre></div>
+<p>Antes de actualizar, haz una copia de seguridad (apartado 14).</p>
+<hr />
+<h2 id="13-empezar-de-cero">13. Empezar de cero<a class="headerlink" href="#13-empezar-de-cero" title="Permanent link">&para;</a></h2>
+<p>Si has cometido un error en el asistente o quieres cambiar de base de datos <strong>antes de usar Gitea</strong>, puedes borrarlo todo:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">cd</span><span class="w"> </span>~/gitea
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>down
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>data<span class="w"> </span>config<span class="w"> </span>postgres
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>data<span class="w"> </span>config
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Esto borra todo</p>
+<p>Se pierden los repositorios, usuarios y configuración de Gitea. Hazlo solo si no tienes nada que conservar. Después cambia el <code>docker-compose.yml</code> si quieres otra base de datos y vuelve al apartado 8.</p>
+</div>
+<hr />
+<h2 id="14-copia-de-seguridad-basica">14. Copia de seguridad básica<a class="headerlink" href="#14-copia-de-seguridad-basica" title="Permanent link">&para;</a></h2>
+<p>Con Gitea parado, copiar las carpetas es una copia de seguridad completa:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">cd</span><span class="w"> </span>~
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>~/gitea/docker-compose.yml<span class="w"> </span>stop
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>sudo<span class="w"> </span>tar<span class="w"> </span>czf<span class="w"> </span>gitea-copia.tar.gz<span class="w"> </span>gitea
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>~/gitea/docker-compose.yml<span class="w"> </span>start
+</span></code></pre></div>
+<p>Con PostgreSQL, además, puedes volcar la base de datos a un archivo de texto:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>~/gitea
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>db<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>gitea<span class="w"> </span>gitea<span class="w"> </span>&gt;<span class="w"> </span>copia-gitea.sql
+</span></code></pre></div>
+<hr />
+<h2 id="15-errores-comunes-y-como-resolverlos">15. Errores comunes y cómo resolverlos<a class="headerlink" href="#15-errores-comunes-y-como-resolverlos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Qué ves</th>
+<th>Causa probable</th>
+<th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>permission denied ... docker.sock</code></td>
+<td>Tu usuario no está en el grupo <code>docker</code></td>
+<td>Usa <code>sudo</code> delante, o añade tu usuario al grupo (apartado 4)</td>
+</tr>
+<tr>
+<td><code>hello-world</code> se queda a medias y aparece <code>^C</code></td>
+<td>Pulsaste <code>Ctrl + C</code> durante la descarga</td>
+<td>Repite <code>sudo docker run hello-world</code> y espera</td>
+</tr>
+<tr>
+<td><code>Permission denied</code> / <code>not writable</code> en los registros</td>
+<td>Las carpetas <code>data</code> o <code>config</code> no pertenecen al usuario 1000</td>
+<td><code>sudo chown 1000:1000 config data</code> y <code>sudo docker compose up -d</code></td>
+</tr>
+<tr>
+<td>El asistente muestra <code>localhost:3306</code> con PostgreSQL</td>
+<td>Estás usando el archivo de SQLite3 y has cambiado el tipo a mano</td>
+<td>Usa el archivo de la opción B y empieza de cero (apartado 13)</td>
+</tr>
+<tr>
+<td>El asistente no conecta con la base de datos</td>
+<td>PostgreSQL aún está arrancando, o el servidor no es <code>db:5432</code></td>
+<td>Espera medio minuto, mira <code>docker compose ps</code> y revisa el campo Servidor</td>
+</tr>
+<tr>
+<td><code>address already in use</code> en el puerto 3000</td>
+<td>Otro programa ya usa ese puerto (otro Gitea, por ejemplo)</td>
+<td><code>sudo ss -tlnp \| grep 3000</code> para ver cuál es</td>
+</tr>
+<tr>
+<td>El usuario <code>admin</code> es rechazado</td>
+<td>Es un nombre reservado de Gitea</td>
+<td>Elige otro nombre</td>
+</tr>
+<tr>
+<td>Los contenedores no se ven con <code>docker ps</code></td>
+<td>Estás en otra máquina o sin <code>sudo</code></td>
+<td><code>sudo docker ps</code></td>
+</tr>
+<tr>
+<td>La página no carga</td>
+<td>Gitea está parado o arrancando</td>
+<td><code>sudo docker compose ps</code> y <code>sudo docker compose logs --tail 30</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="donde-mirar-cuando-algo-falla">Dónde mirar cuando algo falla<a class="headerlink" href="#donde-mirar-cuando-algo-falla" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w">                    </span><span class="c1"># ¿están arriba los contenedores?</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">30</span><span class="w">        </span><span class="c1"># ¿qué ha escrito Gitea?</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">3000</span><span class="w">                 </span><span class="c1"># ¿quién usa el puerto 3000?</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>cat<span class="w"> </span>docker-compose.yml<span class="w">                    </span><span class="c1"># ¿está bien el archivo?</span>
+</span></code></pre></div>
+<hr />
+<h2 id="16-chuleta-rapida">16. Chuleta rápida<a class="headerlink" href="#16-chuleta-rapida" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Instalar Docker y Compose (versión corta)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>docker.io<span class="w"> </span>docker-compose-v2
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="c1"># Crear el proyecto</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/gitea/<span class="o">{</span>data,config<span class="o">}</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="nb">cd</span><span class="w"> </span>~/gitea
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>id<span class="w"> </span>-u<span class="w">                                  </span><span class="c1"># si no es 1000: sudo chown 1000:1000 config data</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1"># Crear docker-compose.yml (opción A o B del apartado 7)</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>nano<span class="w"> </span>docker-compose.yml
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="c1"># Arrancar</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>ps
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>
+</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="c1"># Abrir en el navegador y completar el asistente</span>
+</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="c1"># http://127.0.0.1:3000</span>
+</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a>
+</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="c1"># Día a día</span>
+</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>stop
+</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>start
+</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">30</span>
+</span><span id="__span-24-25"><a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>down
+</span></code></pre></div>
+<hr />
+<h2 id="17-resumen-del-flujo-completo">17. Resumen del flujo completo<a class="headerlink" href="#17-resumen-del-flujo-completo" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>docker-compose.yml  →  docker compose up -d  →  contenedor(es) en marcha
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>                                                        │
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Navegador → http://127.0.0.1:3000 → Gitea ──────────────┤
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>                                       │                │
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>                                       ├─ SQLite3: archivo dentro de data/
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>                                       └─ PostgreSQL: contenedor db → carpeta postgres/
+</span></code></pre></div>
+<p>Una cosa que recordar: <strong>los datos viven en carpetas de tu máquina</strong> (<code>data</code>, <code>config</code> y <code>postgres</code>), no dentro de la caja. Por eso puedes parar, borrar y volver a crear los contenedores sin perder nada.</p>
+<hr />
+<h2 id="recursos">Recursos<a class="headerlink" href="#recursos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.gitea.com/installation/install-with-docker-rootless/">Gitea: instalación con Docker (rootless)</a></li>
+<li><a href="https://docs.gitea.com/installation/install-with-docker/">Gitea: instalación con Docker</a></li>
+<li><a href="https://docs.gitea.com/installation/database-prep/">Gitea: preparación de la base de datos</a></li>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine en Ubuntu</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../tema-visual/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tema Visual">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Tema Visual
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.top","navigation.tracking","search.highlight"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c04ba553.min.js"></script>
+      
+    
+  </body>
+</html>
