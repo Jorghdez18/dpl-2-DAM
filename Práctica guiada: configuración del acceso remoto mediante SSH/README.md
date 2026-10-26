@@ -30,4 +30,4 @@ sudo service ssh status
 
 **Evidencia**
 
-![](/images/cap1DPL.png)
+![](images/cap1DPL.png)
