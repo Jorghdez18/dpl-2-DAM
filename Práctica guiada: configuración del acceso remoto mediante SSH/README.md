@@ -82,6 +82,117 @@ cat ~/.ssh/id_ed25519.pub
 
 ![](images/cap2DPL.png)
 
+---
+
+### Incidencia 3: Configuración del acceso SSH mediante clave pública
+
+**Problema detectado**
+
+Se necesitaba configurar y comprobar el acceso remoto mediante SSH utilizando una clave pública, aumentando la seguridad de la conexión.
+
+**Causa**
+
+Era necesario configurar la autenticación mediante claves SSH y desactivar la autenticación mediante contraseña para que el acceso se realizara mediante la clave privada correspondiente.
+
+**Solución aplicada**
+
+**Paso 1. Copiar la clave pública al usuario**
+
+Se ejecutó el siguiente comando para instalar la clave pública en el usuario local:
+
+```bash
+ssh-copy-id jorge18@localhost
+```
+
+La operación finalizó correctamente y mostró el mensaje `Number of key(s) added: 1`.
+
+**Paso 2. Comprobar la conexión SSH**
+
+Se realizó una conexión al usuario local mediante SSH:
+
+```bash
+ssh jorge18@localhost
+```
+
+Se introdujo la frase de contraseña de la clave privada y se consiguió acceder correctamente al sistema. Después, se ejecutó `whoami` para comprobar el usuario conectado, obteniendo el resultado `jorge18`.
+
+**Paso 3. Revisar la configuración de autenticación**
+
+Se consultaron los parámetros efectivos del servidor SSH mediante el comando:
+
+```bash
+sudo sshd -T | grep -E 'passwordauthentication|pubkeyauthentication'
+```
+
+Inicialmente, la autenticación mediante clave pública y mediante contraseña estaban habilitadas.
+
+**Paso 4. Desactivar la autenticación mediante contraseña**
+
+Se editó el archivo de configuración del servidor SSH:
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+Se modificó la línea correspondiente para dejarla así:
+
+```text
+PasswordAuthentication no
+```
+
+De esta forma, se desactivó la autenticación mediante contraseña.
+
+**Paso 5. Comprobar la sintaxis de la configuración**
+
+Se ejecutó el siguiente comando para comprobar que no hubiera errores de sintaxis:
+
+```bash
+sudo sshd -t
+```
+
+No se mostró ningún mensaje de error.
+
+**Paso 6. Aplicar los cambios**
+
+Se recargó el servicio SSH con el comando:
+
+```bash
+sudo systemctl reload ssh
+```
+
+**Paso 7. Verificar la configuración final**
+
+Se volvió a ejecutar el comando de comprobación:
+
+```bash
+sudo sshd -T | grep -E 'passwordauthentication|pubkeyauthentication'
+```
+
+El resultado obtenido fue:
+
+```text
+pubkeyauthentication yes
+passwordauthentication no
+```
+
+Esto confirmó que la autenticación mediante clave pública seguía activada y que la autenticación mediante contraseña estaba desactivada.
+
+**Paso 8. Realizar la prueba final**
+
+Se volvió a ejecutar:
+
+```bash
+ssh jorge18@localhost
+```
+
+La conexión se realizó correctamente mediante la clave SSH. Se ejecutó `whoami` y se obtuvo `jorge18`, confirmando el acceso al usuario esperado.
+
+**Evidencias**
+
+![](images/cap3DPL.png)
+
+
+
 
 
 
